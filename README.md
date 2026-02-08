@@ -1,9 +1,9 @@
-# 📘 PrecisionDAC — High-Performance Data-to-Analog Conversion Platform
+## PrecisionDAC — High-Performance Data-to-Analog Conversion Platform
 ### *ATxmega128A1U • DAC81408EVM • Industrial RS-232 Interface • Multi-Rail Power System*
 
 ---
 
-## 🚀 Project Overview
+## Project Overview
 **PrecisionDAC** is an industry-grade **Data-to-Analog Conversion (DAC) platform** built using:
 
 - **ATxmega128A1U (100-pin)** microcontroller  
@@ -16,7 +16,7 @@ Designed for **test equipment, control systems, industrial automation, and analo
 
 ---
 
-## 🎯 Key Features
+## Key Features
 - 16-bit precision Data-to-Analog conversion  
 - SPI driver for DAC81408  
 - UART (RS-232 <→ TTL) communication via MAX3232  
@@ -27,7 +27,7 @@ Designed for **test equipment, control systems, industrial automation, and analo
 
 ---
 
-## 🧩 Hardware Architecture
+## Hardware Architecture
 
 | Module | Part Number | Purpose |
 |--------|-------------|---------|
@@ -39,7 +39,7 @@ Designed for **test equipment, control systems, industrial automation, and analo
 
 ---
 
-## 📡 Block Diagram
+## Block Diagram
       +-----------------------------+
       |     ATxmega128A1U MCU       |
       |   (SPI + UART + GPIO)       |
@@ -73,7 +73,7 @@ Designed for **test equipment, control systems, industrial automation, and analo
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 PrecisionDAC/  
 │
 ├── firmware/  
@@ -91,7 +91,7 @@ PrecisionDAC/
 
 ---
 
-## 🔧 Firmware Highlights
+## Firmware Highlights
 - SPI driver for DAC81408  
 - UART handler for RS-232 communication  
 - DAC channel initialization  
@@ -101,7 +101,7 @@ PrecisionDAC/
 
 ---
 
-## 🧪 Test & Validation Tools
+## Test & Validation Tools
 This project includes optional utilities:
 
 - **serial_test.py** — Send digital values via UART  
@@ -110,7 +110,7 @@ This project includes optional utilities:
 
 ---
 
-## 📦 Build & Flash Instructions
+## Build & Flash Instructions
 ### 1. Install AVR toolchain
 - AVR-GCC  
 - Atmel/Microchip Studio
