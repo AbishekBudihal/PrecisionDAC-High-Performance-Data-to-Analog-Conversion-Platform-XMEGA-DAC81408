@@ -31,6 +31,14 @@ void DAC_Allchannelszero();
 
 int main(void)
 {
+	unsigned char check_byte0, check_byte1, check_byte3, check_byte4, check_byte5;
+	unsigned char inpt[80];
+	signed int in_puta, i;
+	float f[23] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+	unsigned char ch[80];
+	float mantisa, result, rad_to_deg;
+
+	
 	Set_clk_freq_To32MHz();
 	_NOP();
 	_NOP();
@@ -39,18 +47,71 @@ int main(void)
 	PORTE.DIRSET=(1<<PIN7_bp);   //enable transmitter pin as output for UART
 	PORTE.DIRCLR=(1<<PIN6_bp);   //enable receiver pin as input for UART
 	PORTQ.DIR=(1<<3);
+	
+	while(1){
+		mantisa=0.0;
+		result = 0.0;
+		rad_to_deg=0.0;
+		
+		check_byte4=ch[19];
+		check_byte4=check_byte4 & 0x80;
+		ch[19]=ch[19] & 0x7F;
+		ch[19]=ch[19]<<1;
+		check_byte3=ch[18];
+		check_byte3=check_byte3 & 0x80;
+		check_byte3=check_byte3 >>7;
+		ch[19]=ch[19] | check_byte3;
+		ch[18]=ch[18] & 0x7F;
+		ch[18]=ch[18]<<1;
+		check_byte2=ch[17];
+		check_byte2=check_byte2 & 0x80;
+		check_byte2=check_byte2 >> 7;
+		ch[18]=ch[18] | check_byte2
+		ch[17]=ch[17] & 0x7F;
+		ch[17]=ch[17] <<1;
+		check_byte1=ch[16];
+		check_byte1=check_byte1 & 0x80;
+		check_byte1=check_byte1 >>7;
+		ch[17]=ch[17] | check_byte1;
+		ch[16] = ch[16] << 1;
+
+		in_puta=ch[19];
+		in_puta=in_puta - 127;
+		f[0]=0.0;
+		check_byte0=0x00;
+		check_byte5=ch[18];
+		for(i=8; i>=1; i--){
+			check_byte0=check_byte5 & 0x01;
+			f[i]=check_byte0 *pow(2,-i);
+			mantisa=mantisa + f[i];
+			check_byte5 = check_byte5 >>1;
+		}
+		check_byte0=0x00;
+		check_byte5=ch[17];
+		for(i=16; i>=9; i--){
+			check_byte0=check_byte5 & 0x01;
+			f[i]=check_byte0 *pow(2,-i);
+			mantisa=mantisa + f[i];
+			check_byte5 = check_byte5 >>1;
+		}
+		check_byte0=0x00;
+		check_byte5=ch[16];
+		for(i=24; i>=17; i--){
+			check_byte0=check_byte5 & 0x01;
+			f[i]=check_byte0 *pow(2,-i);
+			mantisa=mantisa + f[i];
+			check_byte5 = check_byte5 >>1;
+		}
+		final_value=pow(2,in_puta);
+		final_value=(1+ mantisa)*final_value;
+		result=final_value;
+		dtostrf(result,3,4,inpt); uart_print(inpt);
+	}
 }
 
 
 /*******************************************All Sub-routines are here*************************************************/
-
-/******************Initialization PORTC as SPI********************/
-
-void SPI_init()
-{	
-	SPIC_CTRL= (1<<SPI_ENABLE_bp) | (1<<SPI_MASTER_bp) | (1<<SPI_MODE0_bp) | (1<<SPI_PRESCALER1_bp) | (1<<SPI_PRESCALER0_bp);
-}
-	
+ 
 /******************Initialization PORTED as UART*********************/
 
 void uart_portE_init()
