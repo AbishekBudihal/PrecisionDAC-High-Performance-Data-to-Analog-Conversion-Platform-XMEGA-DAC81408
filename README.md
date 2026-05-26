@@ -39,6 +39,10 @@ Designed for **test equipment, control systems, industrial automation, and analo
 
 ---
 
+## Schematic
+![PrecisionDAC Schematic](hardware/schematic/DAC_Schematic.png)
+---
+
 ## Block Diagram
       +-----------------------------+
       |     ATxmega128A1U MCU       |
