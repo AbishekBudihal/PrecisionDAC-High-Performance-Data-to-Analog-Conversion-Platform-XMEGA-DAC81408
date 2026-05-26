@@ -40,7 +40,7 @@ Designed for **test equipment, control systems, industrial automation, and analo
 ---
 
 ## Schematic
-![PrecisionDAC Schematic](hardware/schematic/DAC_Schematic.png)
+![PrecisionDAC Schematic](hardware/schematic/DAC Schematic.png)
 ---
 
 ## Block Diagram
